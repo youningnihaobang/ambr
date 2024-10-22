@@ -32,6 +32,7 @@ from .models import (
     Namecard,
     NamecardDetail,
     Quest,
+    QuestDetail,
     TCGCard,
     TCGCardDetail,
     UpgradeData,
@@ -469,6 +470,18 @@ class AmbrAPI:
         """
         data = await self._request("quest", use_cache=use_cache)
         return [Quest(**quest) for quest in data["data"]["items"].values()]
+
+    async def fetch_quest_detail(self, id:int,use_cache: bool = True) -> list[Quest]:
+        """
+        Fetches all quests.
+
+        Returns
+        -------
+        List[:class:`Quest`]
+            The quests.
+        """
+        data = await self._request(f"quest/{id}", use_cache=use_cache)
+        return data["data"]
 
     async def fetch_tcg_cards(self, use_cache: bool = True) -> list[TCGCard]:
         """
